@@ -7,7 +7,10 @@ import Data.Map qualified as M
 import Data.Map.Merge.Strict qualified as M
 
 newtype FreeCommutativeMonoid a = FreeCommutativeMonoid (M.Map a Natural)
-  deriving (Eq, Ord, Show)
+  deriving (Eq, Ord)
+
+instance (Ord a, Show a) => Show (FreeCommutativeMonoid a) where
+  show x = "fromMultiList " ++ show [a | (a, n) <- toList x, i <- [1..n]]
 
 instance Ord a => Semigroup (FreeCommutativeMonoid a) where
   FreeCommutativeMonoid x <> FreeCommutativeMonoid y = FreeCommutativeMonoid (merge x y)
