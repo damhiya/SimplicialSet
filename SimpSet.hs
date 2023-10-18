@@ -3,7 +3,7 @@ module SimpSet where
 import Prelude hiding ((+))
 import GHC.Natural
 import Algebra
-import FreeAbelianGroup as Z
+import FreeZMod as Z
 import FreeZ2Mod as Z2
 import FreeCommutativeMonoid as FCM
 
@@ -13,12 +13,12 @@ class Ord s => ASSet s where
   face :: s -> Natural -> s
   degenerate :: s -> Natural -> s
 
-boundary1 :: ASSet s => s -> FreeAbelianGroup s
+boundary1 :: ASSet s => s -> FreeZMod s
 boundary1 s
   | level s == 0 = error "No boundary for a (-1)-simplex"
   | level s >= 1 = mconcat [scale ((-1)^i) (Z.free (face s i)) | i <- indices s]
 
-boundary :: ASSet s => FreeAbelianGroup s -> FreeAbelianGroup s
+boundary :: ASSet s => FreeZMod s -> FreeZMod s
 boundary = Z.mkCommutativeMonoidHom (\s k -> scale k (boundary1 s))
 
 naboundary1 :: ASSet s => s -> FreeZ2Mod s

@@ -1,13 +1,13 @@
 module Examples where
 
 import Algebra
-import FreeAbelianGroup as Z
+import FreeZMod as Z
 import FreeZ2Mod as Z2
 import FreeCommutativeMonoid
 import SimpSet
 
 type X = FreeCommutativeMonoid Int
-type ZX = FreeAbelianGroup X
+type ZX = FreeZMod X
 type Z2X = FreeZ2Mod X
 
 parity :: Integral a => (Int, Int, Int) -> a
