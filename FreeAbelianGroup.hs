@@ -1,6 +1,6 @@
 module FreeAbelianGroup where
 
-import Group
+import Algebra
 import Data.Map qualified as M
 import Data.Map.Merge.Strict qualified as M
 
@@ -21,6 +21,8 @@ instance Ord a => Semigroup (FreeAbelianGroup a) where
 instance Ord a => Monoid (FreeAbelianGroup a) where
   mempty = FreeAbelianGroup M.empty
 
+instance Ord a => CommutativeMonoid (FreeAbelianGroup a) where
+
 instance Ord a => Group (FreeAbelianGroup a) where
   invert (FreeAbelianGroup x) = FreeAbelianGroup (M.map negate x)
   pow (FreeAbelianGroup x) n = FreeAbelianGroup (M.map (toInteger n *) x)
@@ -30,5 +32,5 @@ instance Ord a => Abelian (FreeAbelianGroup a) where
 free :: a -> FreeAbelianGroup a
 free x = FreeAbelianGroup (M.singleton x 1)
 
-mkMonoidHom :: Monoid m => (a -> Integer -> m) -> FreeAbelianGroup a -> m
-mkMonoidHom f (FreeAbelianGroup x) = M.foldMapWithKey f x
+mkCommutativeMonoidHom :: CommutativeMonoid m => (a -> Integer -> m) -> FreeAbelianGroup a -> m
+mkCommutativeMonoidHom f (FreeAbelianGroup x) = M.foldMapWithKey f x

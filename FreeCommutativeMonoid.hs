@@ -1,5 +1,6 @@
 module FreeCommutativeMonoid where
 
+import Algebra
 import GHC.Natural
 import Data.Map qualified as M
 import Data.Map.Merge.Strict qualified as M
@@ -20,8 +21,19 @@ instance Ord a => Semigroup (FreeCommutativeMonoid a) where
 instance Ord a => Monoid (FreeCommutativeMonoid a) where
   mempty = FreeCommutativeMonoid M.empty
 
+instance Ord a => CommutativeMonoid (FreeCommutativeMonoid a) where
+
+free :: a -> FreeCommutativeMonoid a
+free x = FreeCommutativeMonoid (M.singleton x 1)
+
+mkCommutativeMonoidHom :: CommutativeMonoid m => (a -> Natural -> m) -> FreeCommutativeMonoid a -> m
+mkCommutativeMonoidHom f (FreeCommutativeMonoid x) = M.foldMapWithKey f x
+
 size :: FreeCommutativeMonoid a -> Natural
 size (FreeCommutativeMonoid x) = sum x
+
+toList :: Ord a => FreeCommutativeMonoid a -> [(a,Natural)]
+toList (FreeCommutativeMonoid x) = M.toList x
 
 fromList :: Ord a => [(a,Natural)] -> FreeCommutativeMonoid a
 fromList xs = FreeCommutativeMonoid (M.fromList . filter ((/=0) . snd) $ xs)
