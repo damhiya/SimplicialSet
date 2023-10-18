@@ -1,32 +1,37 @@
 module SimpSet where
 
 import GHC.Natural
-import Group
 import Data.Map qualified as M
-import MultiSet qualified as MS
+import Group
+import FreeAbelianGroup as FAG
+import FreeCommutativeMonoid as FCM
 
-class Ord s => SimpSet s where
-  dim :: s -> Natural
+class Ord s => ASSet s where
+  level :: s -> Natural -- dimension + 1
+  indices :: s -> [Natural] -- 0 <= i < level
   face :: s -> Natural -> s
   degenerate :: s -> Natural -> s
 
-boundary1 :: SimpSet s => s -> FreeAbelianGroup s
-boundary1 s = mconcat [pow (free (face s i)) ((-1)^i) | i <- [0..dim s]]
+boundary1 :: ASSet s => s -> FreeAbelianGroup s
+boundary1 s
+  | level s == 0 = error "No boundary for (-1)-simplicis"
+  | level s >= 1 = mconcat [pow (free (face s i)) ((-1)^i) | i <- indices s]
 
-boundary :: SimpSet s => FreeAbelianGroup s -> FreeAbelianGroup s
+boundary :: ASSet s => FreeAbelianGroup s -> FreeAbelianGroup s
 boundary = mkMonoidHom (\s k -> pow (boundary1 s) k)
 
-instance Ord a => SimpSet (MS.MultiSet a) where
-  dim s = MS.size s - 1
-  face (MS.MultiSet s) i = MS.fromList (go (M.toList s) i)
+instance Ord a => ASSet (FreeCommutativeMonoid a) where
+  level s = FCM.size s
+  indices s = takeWhile (< level s) [0..]
+  face (FreeCommutativeMonoid s) i = FCM.fromList (go (M.toList s) i)
     where
-      go [] i = error "face : out of range"
+      go [] i = error "face : index out of range"
       go ((x,n):xs) i
         | i <  n = (x,n-1) : xs
         | i >= n = (x,n) : go xs (i-n)
-  degenerate (MS.MultiSet s) i = MS.fromList (go (M.toList s) i)
+  degenerate (FreeCommutativeMonoid s) i = FCM.fromList (go (M.toList s) i)
     where
-      go [] i = error "degenerate : out of range"
+      go [] i = error "degenerate : index out of range"
       go ((x,n):xs) i
         | i <  n = (x,n+1) : xs
         | i >= n = (x,n) : go xs (i-n)
