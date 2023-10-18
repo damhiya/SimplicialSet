@@ -1,5 +1,6 @@
 module SimpSet where
 
+import Prelude hiding ((+))
 import GHC.Natural
 import Algebra
 import FreeAbelianGroup as FAG
@@ -14,10 +15,10 @@ class Ord s => ASSet s where
 boundary1 :: ASSet s => s -> FreeAbelianGroup s
 boundary1 s
   | level s == 0 = error "No boundary for a (-1)-simplex"
-  | level s >= 1 = mconcat [pow (FAG.free (face s i)) ((-1)^i) | i <- indices s]
+  | level s >= 1 = mconcat [scale ((-1)^i) (FAG.free (face s i)) | i <- indices s]
 
 boundary :: ASSet s => FreeAbelianGroup s -> FreeAbelianGroup s
-boundary = FAG.mkCommutativeMonoidHom (\s k -> pow (boundary1 s) k)
+boundary = FAG.mkCommutativeMonoidHom (\s k -> scale k (boundary1 s))
 
 instance Ord a => ASSet (FreeCommutativeMonoid a) where
   level s = FCM.size s

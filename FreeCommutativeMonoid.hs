@@ -1,5 +1,6 @@
 module FreeCommutativeMonoid where
 
+import Prelude hiding ((+))
 import Algebra
 import GHC.Natural
 import Data.Map qualified as M
