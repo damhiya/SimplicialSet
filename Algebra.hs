@@ -29,6 +29,15 @@ class Semiring r => Ring r where
 class (Ring r, Abelian m) => Module r m | m -> r where
   scale :: r -> m -> m
 
+instance Semiring Bool where
+  zero = False
+  one = True
+  (+) = (/=)
+  (*) = (&&)
+
+instance Ring Bool where
+  inv x = x
+
 instance Semiring Natural where
   zero = 0
   one = 1
