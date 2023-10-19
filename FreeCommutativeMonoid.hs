@@ -1,6 +1,6 @@
 module FreeCommutativeMonoid where
 
-import Prelude hiding ((+))
+import Prelude hiding ((+), (*))
 import Algebra
 import GHC.Natural
 import Data.Map qualified as M
@@ -26,6 +26,9 @@ instance Ord a => Monoid (FreeCommutativeMonoid a) where
   mempty = FreeCommutativeMonoid M.empty
 
 instance Ord a => CommutativeMonoid (FreeCommutativeMonoid a) where
+
+instance Ord a => Semimodule Natural (FreeCommutativeMonoid a) where
+  scale n (FreeCommutativeMonoid x) = FreeCommutativeMonoid (M.map (n*) x)
 
 free :: a -> FreeCommutativeMonoid a
 free x = FreeCommutativeMonoid (M.singleton x 1)

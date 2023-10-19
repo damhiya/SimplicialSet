@@ -19,7 +19,7 @@ instance Ord a => CommutativeMonoid (FreeZ2Mod a) where
 instance Ord a => Group (FreeZ2Mod a) where
   invert x = x
 
-instance Ord a => Module Bool (FreeZ2Mod a) where
+instance Ord a => Semimodule Bool (FreeZ2Mod a) where
   scale True  x = x
   scale False x = mempty
 

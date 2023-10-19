@@ -16,18 +16,20 @@ type Abelian g = (CommutativeMonoid g, Group g)
 
 -- semiring
 class Semiring r where
-  zero :: Semiring r => r
+  zero :: r
   one :: r
-  (+) :: Semiring r => r -> r -> r
-  (*) :: Ring r => r -> r -> r
+  (+) :: r -> r -> r
+  (*) :: r -> r -> r
 
 -- ring
 class Semiring r => Ring r where
   inv :: r -> r
 
 -- module
-class (Ring r, Abelian m) => Module r m | m -> r where
+class (Semiring r, CommutativeMonoid m) => Semimodule r m | m -> r where
   scale :: r -> m -> m
+
+type Module r m = (Ring r, Group m, Semimodule r m)
 
 instance Semiring Bool where
   zero = False

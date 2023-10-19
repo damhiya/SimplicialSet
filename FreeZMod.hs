@@ -27,8 +27,8 @@ instance Ord a => CommutativeMonoid (FreeZMod a) where
 instance Ord a => Group (FreeZMod a) where
   invert (FreeZMod x) = FreeZMod (M.map negate x)
 
-instance Ord a => Module Integer (FreeZMod a) where
-  scale n (FreeZMod x) = FreeZMod (M.map (toInteger n *) x)
+instance Ord a => Semimodule Integer (FreeZMod a) where
+  scale n (FreeZMod x) = FreeZMod (M.map (n*) x)
 
 free :: a -> FreeZMod a
 free x = FreeZMod (M.singleton x 1)
