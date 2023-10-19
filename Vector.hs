@@ -12,10 +12,6 @@ data Vec a :: Natural -> Type where
   Nil :: Vec a 0
   Cons :: a -> Vec a n -> Vec a (1 + n)
 
-vlength :: Vec a n -> Natural
-vlength Nil         = 0
-vlength (Cons x xs) = 1 + vlength xs
-
 deriving instance Show a => Show (Vec a n)
 
 instance Eq a => Eq (Vec a n) where
@@ -31,6 +27,10 @@ instance Ord a => Ord (Vec a n) where
   (<) :: Vec a n -> Vec a n -> Bool
   Nil < Nil = False
   Cons x xs < Cons y ys = x < y || x == y && xs < ys
+
+vlength :: Vec a n -> Natural
+vlength Nil         = 0
+vlength (Cons x xs) = 1 + vlength xs
 
 vlookup :: Vec a n -> Natural -> a
 vlookup Nil i = error "lookup : index out of range"
