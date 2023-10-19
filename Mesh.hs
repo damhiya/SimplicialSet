@@ -61,7 +61,7 @@ area :: (a -> Vec3) -> FreeZMod (StdASSet a 3) -> Double
 area m x = zvolume (svolume2 m) x
 
 volume :: (a -> Vec3) -> FreeZMod (StdASSet a 4) -> Double
-volume m x = zvolume (svolume3' m) x
+volume m x = szvolume (svolume3' m) x
 
 -- unoriented
 length' :: (a -> Vec3) -> FreeZ2Mod (StdASSet a 2) -> Double

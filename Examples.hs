@@ -24,6 +24,10 @@ tetrahedron =
   , Face 1 2 3
   ]
 
+-- area m0 (oriented tetrahedron) = (3 + sqrt 3)/2
+-- volume (shift m0) (inside tetrahedron) = 1/6
+-- area' m0 (unoriented tetrahedron) = (3 + sqrt 3)/2
+
 cylinder :: [Face]
 cylinder =
   [ Face 0 1 3
