@@ -7,7 +7,7 @@ import SimpSet
 
 -- ZX unsigned volume
 zvolume :: ASSet x => (x n -> Double) -> FreeZMod (x n) -> Double
-zvolume v x = getSum (Z.mkCommutativeMonoidHom f x)
+zvolume v x = getSum (Z.mkCommutativeMonoidHom f x) -- this is not a monoid hom, indeed.
   where
     f s n = Sum (fromIntegral (abs n) * v s)
 
