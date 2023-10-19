@@ -48,10 +48,6 @@ inside = foldMap go
     simplex (Face x y z) = mkStdASSet (Nothing :+ Just x :+ Just y :+ Just z :+ Nil)
     go f = (scale (parity f) . Z.free) (simplex f)
 
--- boundary of inside
-binside :: FreeZMod (StdASSet (Maybe Word) 4) -> FreeZMod (StdASSet (Maybe Word) 3)
-binside = Z.mkCommutativeMonoidHom (\s k -> scale k (Z.free (face s 0)))
-
 -- shift vertex map
 shift :: (Word -> Vec3) -> (Maybe Word -> Vec3)
 shift m Nothing = mempty
