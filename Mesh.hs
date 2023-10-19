@@ -53,22 +53,19 @@ shift :: (Word -> Vec3) -> (Maybe Word -> Vec3)
 shift m Nothing = mempty
 shift m (Just x) = m x
 
--- perimeter of oriented surface
+-- oriented
 length :: (a -> Vec3) -> FreeZMod (StdASSet a 2) -> Double
 length m x = zvolume (svolume1 m) x
 
--- area of oriented surface
 area :: (a -> Vec3) -> FreeZMod (StdASSet a 3) -> Double
 area m x = zvolume (svolume2 m) x
 
--- volume of closed oriented surface
 volume :: (a -> Vec3) -> FreeZMod (StdASSet a 4) -> Double
 volume m x = zvolume (svolume3' m) x
 
--- perimeter of unoriented surface
-perimeter' :: (a -> Vec3) -> FreeZ2Mod (StdASSet a 2) -> Double
-perimeter' m x = z2volume (svolume1 m) x
+-- unoriented
+length' :: (a -> Vec3) -> FreeZ2Mod (StdASSet a 2) -> Double
+length' m x = z2volume (svolume1 m) x
 
--- area of unoriented surface
 area' :: (a -> Vec3) -> FreeZ2Mod (StdASSet a 3) -> Double
 area' m x = z2volume (svolume2 m) x
