@@ -11,6 +11,9 @@ class Monoid g => CommutativeMonoid g where
 class Monoid g => Group g where
   invert :: g -> g
 
+(<>-) :: Group g => g -> g -> g
+a <>- b = a <> invert b
+
 -- abelian group
 type Abelian g = (CommutativeMonoid g, Group g)
 
