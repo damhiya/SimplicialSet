@@ -26,5 +26,5 @@ instance Ord a => Semimodule Bool (FreeZ2Mod a) where
 free :: a -> FreeZ2Mod a
 free x = FreeZ2Mod (S.singleton x)
 
-mkCommutativeMonoidHom :: CommutativeMonoid m => (a -> m) -> FreeZ2Mod a -> m
-mkCommutativeMonoidHom f (FreeZ2Mod x) = foldMap f x
+instance Foldable FreeZ2Mod where
+  foldMap f (FreeZ2Mod x) = foldMap f x

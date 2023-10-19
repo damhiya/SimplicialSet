@@ -33,5 +33,5 @@ instance Ord a => Semimodule Integer (FreeZMod a) where
 free :: a -> FreeZMod a
 free x = FreeZMod (M.singleton x 1)
 
-mkCommutativeMonoidHom :: CommutativeMonoid m => (a -> Integer -> m) -> FreeZMod a -> m
-mkCommutativeMonoidHom f (FreeZMod x) = M.foldMapWithKey f x
+foldMapWithNum :: Monoid m => (Integer -> a -> m) -> FreeZMod a -> m
+foldMapWithNum f (FreeZMod x) = M.foldMapWithKey (flip f) x

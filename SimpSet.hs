@@ -26,7 +26,7 @@ boundary1 s
   | level s >= 1 = mconcat [scale ((-1)^i) (Z.free (face s i)) | i <- indices s]
 
 boundary :: (Ord (x n), ASSet x) => FreeZMod (x (1 + n)) -> FreeZMod (x n)
-boundary = Z.mkCommutativeMonoidHom (\s k -> scale k (boundary1 s))
+boundary = Z.foldMapWithNum (\n s -> scale n (boundary1 s))
 
 -- non alternating boundary
 naboundary1 :: (Ord (x n), ASSet x) => x (1 + n) -> FreeZ2Mod (x n)
@@ -35,7 +35,7 @@ naboundary1 s
   | level s >= 1 = mconcat [Z2.free (face s i) | i <- indices s]
 
 naboundary :: (Ord (x n), ASSet x) => FreeZ2Mod (x (1 + n)) -> FreeZ2Mod (x n)
-naboundary = Z2.mkCommutativeMonoidHom naboundary1
+naboundary = foldMap naboundary1
 
 -- an instance
 newtype StdASSet a n = StdASSet (Vec a n)
