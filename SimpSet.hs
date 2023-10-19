@@ -13,28 +13,28 @@ import FreeZ2Mod as Z2
 import Vector
 
 -- augmented simplicial set
-class ASSet (s :: Natural -> Type) where
-  level :: s n -> Natural
-  indices :: s n -> [Natural] -- 0 <= i < level
-  face :: s (1 + n) -> Natural -> s n
-  degenerate :: s n -> Natural -> s (1 + n)
+class ASSet (x :: Natural -> Type) where
+  level :: x n -> Natural
+  indices :: x n -> [Natural] -- 0 <= i < level
+  face :: x (1 + n) -> Natural -> x n
+  degenerate :: x n -> Natural -> x (1 + n)
 
 -- alternating boundary
-boundary1 :: (Ord (s n), ASSet s) => s (1 + n) -> FreeZMod (s n)
+boundary1 :: (Ord (x n), ASSet x) => x (1 + n) -> FreeZMod (x n)
 boundary1 s
   | level s == 0 = error "No boundary for a (-1)-simplex"
   | level s >= 1 = mconcat [scale ((-1)^i) (Z.free (face s i)) | i <- indices s]
 
-boundary :: (Ord (s n), ASSet s) => FreeZMod (s (1 + n)) -> FreeZMod (s n)
+boundary :: (Ord (x n), ASSet x) => FreeZMod (x (1 + n)) -> FreeZMod (x n)
 boundary = Z.mkCommutativeMonoidHom (\s k -> scale k (boundary1 s))
 
 -- non alternating boundary
-naboundary1 :: (Ord (s n), ASSet s) => s (1 + n) -> FreeZ2Mod (s n)
+naboundary1 :: (Ord (x n), ASSet x) => x (1 + n) -> FreeZ2Mod (x n)
 naboundary1 s
   | level s == 0 = error "No boundary for a (-1)-simplex"
   | level s >= 1 = mconcat [Z2.free (face s i) | i <- indices s]
 
-naboundary :: (Ord (s n), ASSet s) => FreeZ2Mod (s (1 + n)) -> FreeZ2Mod (s n)
+naboundary :: (Ord (x n), ASSet x) => FreeZ2Mod (x (1 + n)) -> FreeZ2Mod (x n)
 naboundary = Z2.mkCommutativeMonoidHom naboundary1
 
 -- an instance
