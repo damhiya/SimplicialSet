@@ -25,12 +25,14 @@ class Semiring r where
 class Semiring r => Ring r where
   inv :: r -> r
 
--- module
+-- semimodule
 class (Semiring r, CommutativeMonoid m) => Semimodule r m | m -> r where
   scale :: r -> m -> m
 
+-- module
 type Module r m = (Ring r, Group m, Semimodule r m)
 
+-- instances
 instance Semiring Bool where
   zero = False
   one = True
