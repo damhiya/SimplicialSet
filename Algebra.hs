@@ -3,6 +3,7 @@
 module Algebra where
 
 import GHC.Natural
+import Data.Semigroup
 
 -- commutative monoid
 class Monoid g => CommutativeMonoid g where
@@ -36,6 +37,8 @@ class (Semiring r, CommutativeMonoid m) => Semimodule r m | m -> r where
 type Module r m = (Ring r, Group m, Semimodule r m)
 
 -- instances
+instance Num a => CommutativeMonoid (Sum a)
+
 instance Semiring Bool where
   zero = False
   one = True

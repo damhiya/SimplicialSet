@@ -38,7 +38,7 @@ naboundary :: (Ord (s n), ASSet s) => FreeZ2Mod (s (1 + n)) -> FreeZ2Mod (s n)
 naboundary = Z2.mkCommutativeMonoidHom naboundary1
 
 -- an instance
-newtype StdASSet a n = StdASSet (Vec a n)
+newtype StdASSet a n = StdASSet {getSequence :: Vec a n}
   deriving (Show, Eq, Ord)
 
 mkStdASSet :: Ord a => Vec a n -> StdASSet a n
