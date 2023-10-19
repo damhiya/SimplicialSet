@@ -44,7 +44,7 @@ newtype StdASSet a n = StdASSet {getSequence :: Vec a n}
 mkStdASSet :: Ord a => Vec a n -> StdASSet a n
 mkStdASSet xs = StdASSet (sort xs)
 
-instance Ord a => ASSet (StdASSet a) where
+instance ASSet (StdASSet a) where
   level (StdASSet xs) = vlength xs
   indices s = takeWhile (< level s) [0..]
   face (StdASSet xs) i = StdASSet (go xs i)
