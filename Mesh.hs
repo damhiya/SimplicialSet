@@ -31,21 +31,21 @@ parity (Face x y z)
 oriented :: [Face] -> FreeZMod (StdASSet Word 3)
 oriented = foldMap go
   where
-    simplex (Face x y z) = mkStdASSet (Cons x (Cons y (Cons z Nil)))
+    simplex (Face x y z) = mkStdASSet (x :+ y :+ z :+ Nil)
     go f = (scale (parity f) . Z.free) (simplex f)
 
 -- interpret as unoriented surface
 unoriented :: [Face] -> FreeZ2Mod (StdASSet Word 3)
 unoriented = foldMap go
   where
-    simplex (Face x y z) = mkStdASSet (Cons x (Cons y (Cons z Nil)))
+    simplex (Face x y z) = mkStdASSet (x :+ y :+ z :+ Nil)
     go f = Z2.free (simplex f)
 
 -- interpret as closed oriented surface, compute the inside of it
 inside :: [Face] -> FreeZMod (StdASSet (Maybe Word) 4)
 inside = foldMap go
   where
-    simplex (Face x y z) = mkStdASSet (Cons Nothing (Cons (Just x) (Cons (Just y) (Cons (Just z) Nil))))
+    simplex (Face x y z) = mkStdASSet (Nothing :+ Just x :+ Just y :+ Just z :+ Nil)
     go f = (scale (parity f) . Z.free) (simplex f)
 
 -- boundary of inside
