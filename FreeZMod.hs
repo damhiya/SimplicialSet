@@ -27,8 +27,6 @@ instance Ord a => CommutativeMonoid (FreeZMod a) where
 instance Ord a => Group (FreeZMod a) where
   invert (FreeZMod x) = FreeZMod (M.map negate x)
 
-instance Ord a => Abelian (FreeZMod a) where
-
 instance Ord a => Module Integer (FreeZMod a) where
   scale n (FreeZMod x) = FreeZMod (M.map (toInteger n *) x)
 

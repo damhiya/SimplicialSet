@@ -12,7 +12,7 @@ class Monoid g => Group g where
   invert :: g -> g
 
 -- abelian group
-class (CommutativeMonoid g, Group g) => Abelian g where
+type Abelian g = (CommutativeMonoid g, Group g)
 
 -- semiring
 class Semiring r where
