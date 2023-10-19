@@ -7,12 +7,14 @@ import FreeZMod as Z
 import FreeZ2Mod as Z2
 import FreeCommutativeMonoid as FCM
 
+-- augmented simplicial set
 class Ord s => ASSet s where
   level :: s -> Natural -- dimension + 1
   indices :: s -> [Natural] -- 0 <= i < level
   face :: s -> Natural -> s
   degenerate :: s -> Natural -> s
 
+-- alternating boundary
 boundary1 :: ASSet s => s -> FreeZMod s
 boundary1 s
   | level s == 0 = error "No boundary for a (-1)-simplex"
@@ -21,6 +23,7 @@ boundary1 s
 boundary :: ASSet s => FreeZMod s -> FreeZMod s
 boundary = Z.mkCommutativeMonoidHom (\s k -> scale k (boundary1 s))
 
+-- non alternating boundary
 naboundary1 :: ASSet s => s -> FreeZ2Mod s
 naboundary1 s
   | level s == 0 = error "No boundary for a (-1)-simplex"
@@ -29,6 +32,7 @@ naboundary1 s
 naboundary :: ASSet s => FreeZ2Mod s -> FreeZ2Mod s
 naboundary = Z2.mkCommutativeMonoidHom naboundary1
 
+-- an instance
 instance Ord a => ASSet (FreeCommutativeMonoid a) where
   level s = FCM.size s
   indices s = takeWhile (< level s) [0..]
