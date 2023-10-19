@@ -2,7 +2,11 @@ module EuclideanGeometry where
 
 import Algebra hiding ((+), (*))
 
-data Vec3 = Vec3 Double Double Double
+data Vec3 =
+  Vec3
+    {-# UNPACK #-} !Double
+    {-# UNPACK #-} !Double
+    {-# UNPACK #-} !Double
 
 instance Semigroup Vec3 where
   Vec3 x1 y1 z1 <> Vec3 x2 y2 z2 = Vec3 (x1 + y1) (y1 + y2) (z1 + z2)
