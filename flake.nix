@@ -8,7 +8,7 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages."${system}";
-        hspkgs = pkgs: with pkgs; [ ];
+        hspkgs = pkgs: with pkgs; [ ghc-typelits-natnormalise ];
       in {
         devShell = pkgs.mkShell {
           nativeBuildInputs = [ ];

@@ -1,14 +1,19 @@
+{-# LANGUAGE DataKinds #-}
+
 module Examples where
 
 import Algebra
 import FreeZMod as Z
 import FreeZ2Mod as Z2
-import FreeCommutativeMonoid
+import Vector
 import SimpSet
 
-type X = FreeCommutativeMonoid Int
-type ZX = FreeZMod X
-type Z2X = FreeZ2Mod X
+type X n = StdASSet Int n
+type ZX n = FreeZMod (X n)
+type Z2X n = FreeZ2Mod (X n)
+
+simp3 :: Ord a => (a, a, a) -> StdASSet a 3
+simp3 (x,y,z) = mkStdASSet (Cons x (Cons y (Cons z Nil)))
 
 parity :: Integral a => (Int, Int, Int) -> a
 parity (x,y,z)
@@ -20,13 +25,13 @@ parity (x,y,z)
   | y < x && z < y = -1
   | y < x && otherwise = 1
 
-oriented :: (Int, Int, Int) -> ZX
-oriented x@(a,b,c) = (scale (parity x) . Z.free . fromMultiList) [a,b,c]
+oriented :: (Int, Int, Int) -> ZX 3
+oriented x = (scale (parity x) . Z.free) (simp3 x)
 
-unoriented :: (Int, Int, Int) -> Z2X
-unoriented x@(a,b,c) = (Z2.free . fromMultiList) [a,b,c]
+unoriented :: (Int, Int, Int) -> Z2X 3
+unoriented x@(a,b,c) = Z2.free (simp3 x)
 
-cylinder :: ZX
+cylinder :: ZX 3
 cylinder = foldMap oriented faces
   where
     faces =
@@ -38,7 +43,7 @@ cylinder = foldMap oriented faces
       , (4,1,0)
       ]
 
-moebius :: Z2X
+moebius :: Z2X 3
 moebius = foldMap unoriented faces
   where
     faces =
