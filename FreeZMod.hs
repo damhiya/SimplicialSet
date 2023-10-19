@@ -1,6 +1,6 @@
 module FreeZMod where
 
-import Prelude hiding ((+), (*))
+import Prelude hiding ((+), (*), negate)
 import Algebra
 import Data.Map qualified as M
 import Data.Map.Merge.Strict qualified as M

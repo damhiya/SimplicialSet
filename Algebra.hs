@@ -23,7 +23,7 @@ class Semiring r where
 
 -- ring
 class Semiring r => Ring r where
-  inv :: r -> r
+  negate :: r -> r
 
 -- semimodule
 class (Semiring r, CommutativeMonoid m) => Semimodule r m | m -> r where
@@ -40,7 +40,7 @@ instance Semiring Bool where
   (*) = (&&)
 
 instance Ring Bool where
-  inv x = x
+  negate = id
 
 instance Semiring Natural where
   zero = 0
@@ -55,4 +55,4 @@ instance Semiring Integer where
   (*) = (Prelude.*)
 
 instance Ring Integer where
-  inv x = -x
+  negate = Prelude.negate
