@@ -12,9 +12,10 @@ data Vec3 =
     {-# UNPACK #-} !Double
     {-# UNPACK #-} !Double
     {-# UNPACK #-} !Double
+  deriving Show
 
 instance Semigroup Vec3 where
-  Vec3 x1 y1 z1 <> Vec3 x2 y2 z2 = Vec3 (x1 + y1) (y1 + y2) (z1 + z2)
+  Vec3 x1 y1 z1 <> Vec3 x2 y2 z2 = Vec3 (x1 + x2) (y1 + y2) (z1 + z2)
 
 instance Monoid Vec3 where
   mempty = Vec3 0 0 0
@@ -47,7 +48,7 @@ volume3' p0 p1 p2 p3 = ((u1 `cross` u2) `dot` u3) / 6
   where
     u1 = p1 <>- p0
     u2 = p2 <>- p0
-    u3 = p2 <>- p0
+    u3 = p3 <>- p0
 
 -- assigning volume to n-simplices
 apply :: (a -> Vec3) -> StdASSet a n -> Natural -> Vec3

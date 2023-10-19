@@ -7,7 +7,14 @@ import FreeZMod as Z
 import FreeZ2Mod as Z2
 import Vector
 import SimpSet
+import EuclideanGeometry
 import Mesh
+
+m0 :: Word -> Vec3
+m0 0 = Vec3 0 0 0
+m0 1 = Vec3 1 0 0
+m0 2 = Vec3 0 1 0
+m0 3 = Vec3 0 0 1
 
 tetrahedron :: [Face]
 tetrahedron =
