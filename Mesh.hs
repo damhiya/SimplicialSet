@@ -19,7 +19,7 @@ data Face =
 
 parity :: Integral a => Face -> a
 parity (Face x y z)
-  | x == y || y == z || x == z = 0
+  | x == y || y == z || x == z = 1
   | x < y && y < z = 1
   | x < y && z < x = 1
   | x < y && otherwise = -1
