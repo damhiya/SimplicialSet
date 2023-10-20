@@ -1,5 +1,5 @@
 
-torus(a,b,θ,ϕ) = [ a * cos(ϕ) + b * cos(ϕ) * cos(θ)
+torus(a,b,ϕ,θ) = [ a * cos(ϕ) + b * cos(ϕ) * cos(θ)
                  , a * sin(ϕ) + b * sin(ϕ) * cos(θ)
                  , b * sin(θ)
                  ]

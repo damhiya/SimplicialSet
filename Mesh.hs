@@ -54,8 +54,8 @@ shift m Nothing = mempty
 shift m (Just x) = m x
 
 -- oriented
-length :: (a -> Vec3) -> FreeZMod (StdASSet a 2) -> Double
-length m x = zvolume (svolume1 m) x
+len :: (a -> Vec3) -> FreeZMod (StdASSet a 2) -> Double
+len m x = zvolume (svolume1 m) x
 
 area :: (a -> Vec3) -> FreeZMod (StdASSet a 3) -> Double
 area m x = zvolume (svolume2 m) x
@@ -64,8 +64,8 @@ volume :: (a -> Vec3) -> FreeZMod (StdASSet a 4) -> Double
 volume m x = szvolume (svolume3' m) x
 
 -- unoriented
-length' :: (a -> Vec3) -> FreeZ2Mod (StdASSet a 2) -> Double
-length' m x = z2volume (svolume1 m) x
+len' :: (a -> Vec3) -> FreeZ2Mod (StdASSet a 2) -> Double
+len' m x = z2volume (svolume1 m) x
 
 area' :: (a -> Vec3) -> FreeZ2Mod (StdASSet a 3) -> Double
 area' m x = z2volume (svolume2 m) x

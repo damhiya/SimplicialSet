@@ -26,13 +26,26 @@ readInput = do
 main :: IO ()
 main = do
   (m, faces) <- readInput
-  let o = oriented faces
-      d = boundary o
-      u = unoriented faces
-      i = inside faces
-  if d == mempty then do
+  let o  = oriented faces
+      o' = boundary o
+      u  = unoriented faces
+      u' = naboundary u
+  if o' == mempty then do
     putStrLn "closed and oriented"
-  else if getAll (Z.foldMapWithNum (\n s -> All (abs n <= 1)) d) then do
+    let i = inside faces
+        v = volume (shift m) i
+        a = area m o
+    putStrLn ("volume : " ++ show v)
+    putStrLn ("area   : " ++ show a)
+  else if getAll (Z.foldMapWithNum (\n s -> All (abs n <= 1)) o') then do
     putStrLn "oriented"
+    let a = area m o
+        l = len m o'
+    putStrLn ("area      : " ++ show a)
+    putStrLn ("perimeter : " ++ show l)
   else do
     putStrLn "unoriented"
+    let a = area' m u
+        l = len' m u'
+    putStrLn ("area      : " ++ show a)
+    putStrLn ("perimeter : " ++ show l)
