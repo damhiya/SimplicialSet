@@ -2,7 +2,7 @@
 {-# LANGUAGE GADTs #-}
 {-# LANGUAGE DataKinds #-}
 
-module Vector where
+module Data.IndexedVector where
 
 import GHC.Types
 import GHC.TypeNats

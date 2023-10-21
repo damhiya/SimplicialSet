@@ -1,6 +1,6 @@
-module FreeZ2Mod where
+module Algebra.FreeZ2Mod where
 
-import Algebra
+import Algebra.Structures
 import Data.Set qualified as S
 
 newtype FreeZ2Mod a = FreeZ2Mod (S.Set a)

@@ -1,9 +1,9 @@
-module Geometry where
+module Geometry.Volume where
 
 import Data.Semigroup
-import FreeZMod as Z
-import FreeZ2Mod as Z2
-import SimpSet
+import Algebra.FreeZMod as Z
+import Algebra.FreeZ2Mod as Z2
+import Algebra.SimplicialSet
 
 -- ZX unsigned volume
 zvolume :: ASSet x => (x n -> Double) -> FreeZMod (x n) -> Double

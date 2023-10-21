@@ -2,10 +2,10 @@ module Main where
 
 import Data.Semigroup
 import Control.Monad
-import FreeZMod as Z
-import SimpSet
-import EuclideanGeometry
-import Mesh
+import Algebra.FreeZMod as Z
+import Algebra.SimplicialSet
+import Geometry.Euclidean
+import Geometry.Mesh
 
 readInput :: IO (Word -> Vec3, [Face])
 readInput = do

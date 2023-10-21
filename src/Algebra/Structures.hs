@@ -1,6 +1,6 @@
 {-# LANGUAGE FunctionalDependencies #-}
 
-module Algebra where
+module Algebra.Structures where
 
 import GHC.Natural
 import Data.Semigroup

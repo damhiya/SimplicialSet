@@ -5,10 +5,10 @@ module Examples where
 import Algebra
 import FreeZMod as Z
 import FreeZ2Mod as Z2
-import Vector
+import Data.IndexedVector
 import SimpSet
-import EuclideanGeometry
-import Mesh
+import Geometry.Euclidean
+import Geometry.Mesh
 
 m0 :: Word -> Vec3
 m0 0 = Vec3 0 0 0

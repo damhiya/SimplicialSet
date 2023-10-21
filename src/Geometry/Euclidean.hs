@@ -1,11 +1,11 @@
 {-# LANGUAGE DataKinds #-}
 
-module EuclideanGeometry where
+module Geometry.Euclidean where
 
 import GHC.Natural
-import Vector
-import Algebra hiding ((+), (*))
-import SimpSet
+import Data.IndexedVector
+import Algebra.Structures hiding ((+), (*))
+import Algebra.SimplicialSet
 
 data Vec3 =
   Vec3

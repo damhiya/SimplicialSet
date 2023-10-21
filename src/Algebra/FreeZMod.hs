@@ -1,7 +1,7 @@
-module FreeZMod where
+module Algebra.FreeZMod where
 
 import Prelude hiding ((+), (*), negate)
-import Algebra
+import Algebra.Structures
 import Data.Map qualified as M
 import Data.Map.Merge.Strict qualified as M
 

@@ -1,14 +1,14 @@
 {-# LANGUAGE DataKinds #-}
 
-module Mesh where
+module Geometry.Mesh where
 
-import Algebra
-import FreeZMod as Z
-import FreeZ2Mod as Z2
-import Vector
-import SimpSet
-import Geometry
-import EuclideanGeometry
+import Algebra.Structures
+import Algebra.FreeZMod as Z
+import Algebra.FreeZ2Mod as Z2
+import Data.IndexedVector
+import Algebra.SimplicialSet
+import Geometry.Volume
+import Geometry.Euclidean
 
 data Face =
   Face

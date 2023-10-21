@@ -2,15 +2,15 @@
 {-# LANGUAGE GADTs #-}
 {-# LANGUAGE DataKinds #-}
 
-module SimpSet where
+module Algebra.SimplicialSet where
 
 import Prelude hiding ((+))
 import GHC.Types
 import GHC.TypeNats
-import Algebra
-import FreeZMod as Z
-import FreeZ2Mod as Z2
-import Vector
+import Algebra.Structures
+import Algebra.FreeZMod as Z
+import Algebra.FreeZ2Mod as Z2
+import Data.IndexedVector
 
 -- augmented simplicial set
 class ASSet (x :: Natural -> Type) where
