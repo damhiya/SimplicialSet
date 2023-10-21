@@ -9,8 +9,9 @@ import Mesh
 
 readInput :: IO (Word -> Vec3, [Face])
 readInput = do
-  (m, n) <- readLn
+  m <- readLn
   vs <- replicateM m readVertex
+  n <- readLn
   fs <- replicateM n readFace
   pure ((vs !!) . fromIntegral, fs)
   where

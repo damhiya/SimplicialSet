@@ -24,10 +24,11 @@ function main()
     vs = eachcol(vmap)
     fs = eachcol(fmap)
 
-    println("($(length(vs)), $(length(fs)))")
+    println("$(length(vs))")
     for v in vs
         println("($(v[1]), $(v[2]), $(v[3]))")
     end
+    println("$(length(fs))")
     for f in fs
         println("($(f[1]), $(f[2]), $(f[3]))")
     end
