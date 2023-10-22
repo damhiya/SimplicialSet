@@ -6,6 +6,7 @@ module Data.IndexedVector where
 
 import GHC.Types
 import GHC.TypeNats
+import Data.Fin
 
 -- vector
 infixr 5 :+
@@ -34,10 +35,9 @@ vlength :: Vec a n -> Natural
 vlength Nil         = 0
 vlength (x:+xs) = 1 + vlength xs
 
-vlookup :: Vec a n -> Natural -> a
-vlookup Nil i = error "lookup : index out of range"
-vlookup (x:+xs) i | i == 0    = x
-                      | otherwise = vlookup xs (i-1)
+vlookup :: Vec a n -> Fin n -> a
+vlookup (x:+xs) Zero    = x
+vlookup (x:+xs) (Suc i) = vlookup xs i
 
 insert :: Ord a => a -> Vec a n -> Vec a (1+n)
 insert x Nil                 = x :+ Nil

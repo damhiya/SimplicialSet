@@ -6,6 +6,7 @@ import GHC.Natural
 import Algebra.Structures
 import Algebra.FreeZMod as Z
 import Algebra.FreeZ2Mod as Z2
+import Data.Fin
 import Data.IndexedVector
 import Algebra.SimplicialSet
 import Geometry.Volume
@@ -55,21 +56,21 @@ shift m Nothing = mempty
 shift m (Just x) = m x
 
 -- assigning volume to n-simplices
-apply :: (a -> Vec3) -> StdASSet a n -> Natural -> Vec3
+apply :: (a -> Vec3) -> StdASSet a n -> Fin n -> Vec3
 apply m s i = m (vlookup (getSequence s) i)
 
 svolume1 :: (a -> Vec3) -> StdASSet a 2 -> Double
-svolume1 m s = volume1 (p 0) (p 1)
+svolume1 m s = volume1 (p fin0) (p fin1)
   where
     p = apply m s
 
 svolume2 :: (a -> Vec3) -> StdASSet a 3 -> Double
-svolume2 m s = volume2 (p 0) (p 1) (p 2)
+svolume2 m s = volume2 (p fin0) (p fin1) (p fin2)
   where
     p = apply m s
 
 svolume3' :: (a -> Vec3) -> StdASSet a 4 -> Double
-svolume3' m s = volume3' (p 0) (p 1) (p 2) (p 3)
+svolume3' m s = volume3' (p fin0) (p fin1) (p fin2) (p fin3)
   where
     p = apply m s
 
