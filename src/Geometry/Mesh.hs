@@ -2,6 +2,7 @@
 
 module Geometry.Mesh where
 
+import GHC.Natural
 import Algebra.Structures
 import Algebra.FreeZMod as Z
 import Algebra.FreeZ2Mod as Z2
@@ -52,6 +53,25 @@ inside = foldMap go
 shift :: (Word -> Vec3) -> (Maybe Word -> Vec3)
 shift m Nothing = mempty
 shift m (Just x) = m x
+
+-- assigning volume to n-simplices
+apply :: (a -> Vec3) -> StdASSet a n -> Natural -> Vec3
+apply m s i = m (vlookup (getSequence s) i)
+
+svolume1 :: (a -> Vec3) -> StdASSet a 2 -> Double
+svolume1 m s = volume1 (p 0) (p 1)
+  where
+    p = apply m s
+
+svolume2 :: (a -> Vec3) -> StdASSet a 3 -> Double
+svolume2 m s = volume2 (p 0) (p 1) (p 2)
+  where
+    p = apply m s
+
+svolume3' :: (a -> Vec3) -> StdASSet a 4 -> Double
+svolume3' m s = volume3' (p 0) (p 1) (p 2) (p 3)
+  where
+    p = apply m s
 
 -- oriented
 len :: (a -> Vec3) -> FreeZMod (StdASSet a 2) -> Double

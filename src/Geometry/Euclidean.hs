@@ -2,10 +2,7 @@
 
 module Geometry.Euclidean where
 
-import GHC.Natural
-import Data.IndexedVector
 import Algebra.Structures hiding ((+), (*))
-import Algebra.SimplicialSet
 
 data Vec3 =
   Vec3
@@ -49,22 +46,3 @@ volume3' p0 p1 p2 p3 = ((u1 `cross` u2) `dot` u3) / 6
     u1 = p1 <>- p0
     u2 = p2 <>- p0
     u3 = p3 <>- p0
-
--- assigning volume to n-simplices
-apply :: (a -> Vec3) -> StdASSet a n -> Natural -> Vec3
-apply m s i = m (vlookup (getSequence s) i)
-
-svolume1 :: (a -> Vec3) -> StdASSet a 2 -> Double
-svolume1 m s = volume1 (p 0) (p 1)
-  where
-    p = apply m s
-
-svolume2 :: (a -> Vec3) -> StdASSet a 3 -> Double
-svolume2 m s = volume2 (p 0) (p 1) (p 2)
-  where
-    p = apply m s
-
-svolume3' :: (a -> Vec3) -> StdASSet a 4 -> Double
-svolume3' m s = volume3' (p 0) (p 1) (p 2) (p 3)
-  where
-    p = apply m s
