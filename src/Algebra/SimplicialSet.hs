@@ -49,12 +49,12 @@ instance ASSet (StdASSet a) where
   face (StdASSet xs) i = StdASSet (go xs i)
     where
       go :: Vec a (1 + n) -> Natural -> Vec a n
-      go (x :+ xs)            0 = xs
-      go (x :+ Nil)           i = error "face : index out of range"
+      go (x :+ xs)        0 = xs
+      go (x :+ Nil)       i = error "face : index out of range"
       go (x :+ xs@(_:+_)) i = x :+ go xs (i-1)
   degenerate (StdASSet xs) i = StdASSet (go xs i)
     where
       go :: Vec a n -> Natural -> Vec a (1 + n)
-      go (x :+ xs)        0 = x :+ x :+ xs
-      go (x :+ Nil)       i = error "degenerate : index out of range"
-      go (x :+ xs@(_:+_)) i = x :+ go xs (i-1)
+      go Nil       i = error "degenerate : index out of range"
+      go (x :+ xs) 0 = x :+ x :+ xs
+      go (x :+ xs) i = x :+ go xs (i-1)
